@@ -15,5 +15,22 @@
     </ul>
     <p>This is one of my favorite websites: <a href="https://www.google.com/" target="_blank">Google</a></p>
 
+
+    <label>
+        <input type="checkbox" id="agreeBox" />
+        I agree to the terms
+    </label>
+
+    <script>
+        const checkbox = document.getElementById('agreeBox');
+        checkbox.addEventListener('change', () => {
+        if (checkbox.checked) {
+            alert('You agreed!');
+        } else {
+            alert('You unchecked it.');
+        }
+        });
+    </script>
+
 </body>
 </html>
