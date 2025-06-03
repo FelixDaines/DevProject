@@ -10,17 +10,32 @@
     <h1>College bars!!</h1>
     <p>All college bars:</p>
 
+    <ul id="testlist"></ul>
+
     <ul id="itemList"></ul>
 
     <script>
-        fetch('resources\colleges.json')
+
+
+        const testList = document.getElementById("testlist");
+        const items = ["Bar One", "Bar Two", "Bar Three", "bar four"];
+        items.forEach(item => {
+            const li = document.createElement("li");
+            li.textContent = item;
+            testList.appendChild(li);
+        });
+    </script>
+
+
+    <script>
+        fetch('resources/colleges.json')
         .then(response => response.json())
         .then(jsonData => {
             const listElement = document.getElementById("itemList");
             jsonData.items.forEach(item => {
-            const li = document.createElement("li");
-            li.textContent = item;
-            listElement.appendChild(li);
+                const li = document.createElement("li");
+                li.textContent = item;
+                listElement.appendChild(li);
             });
         })
         .catch(error => {
