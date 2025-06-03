@@ -3,7 +3,9 @@
 }
 
 body{
-  background-image: linear-gradient(to right, #f0f0f0, #3c279b);
+  /*background-image: linear-gradient(to right, #f0f0f0, #3c279b);
+  */
+  background: #d27575;
 }
 
 h1 {
