@@ -1,8 +1,10 @@
 * {
   font-family: Helvetica, Arial, sans-serif;
-  background-image: linear-gradient(to right, #f0f0f0, #b9b3d3);
 }
 
+body{
+  background-image: linear-gradient(to right, #f0f0f0, #3c279b);
+}
 
 h1 {
   color: SeaGreen;
