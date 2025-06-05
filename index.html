@@ -7,59 +7,69 @@
 </head>
 
 <body>
-    <h1>College bars!!</h1>
-    <p>All college bars:</p>
 
-    <ul id="testlist"></ul>
+    <div id="banner">
+        <div class="content">
+            <h1>COLLEGE BARS</h1>
+        </div>        
+    </div>
 
-    <ul id="itemList"></ul>
+    
 
+    <div id="bar-list">
+        <p>All college bars:</p>
+        <ul id="bar_list"></ul>
+    </div>
+
+
+    
     <script>
-
-
-        const testList = document.getElementById("testlist");
-        const items = ["Bar One", "Bar Two", "Bar Three", "bar four"];
+        const testList = document.getElementById("bar_list");
+        const items = [
+            "Christ's College",
+            "Churchill College",
+            "Clare College",
+            "Clare Hall",
+            "Corpus Christi College",
+            "Darwin College",
+            "Downing College",
+            "Emmanuel College",
+            "Fitzwilliam College",
+            "Girton College",
+            "Gonville & Caius College",
+            "Homerton College",
+            "Hughes Hall",
+            "Jesus College",
+            "King's College",
+            "Lucy Cavendish College",
+            "Magdalene College",
+            "Murray Edwards College",
+            "Newnham College",
+            "Pembroke College",
+            "Peterhouse",
+            "Queens' College",
+            "Robinson College",
+            "St Catharine's College",
+            "St Edmund's College",
+            "St John's College",
+            "Selwyn College",
+            "Sidney Sussex College",
+            "Trinity College",
+            "Trinity Hall",
+            "Wolfson College"];
         items.forEach(item => {
             const li = document.createElement("li");
-            li.textContent = item;
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.id = item.replace(/\s+/g, '_').replace(/[^a-zA-Z0-9_]/g, '');
+            const label = document.createElement("label");
+            label.htmlFor = checkbox.id;
+            label.textContent = item;
+            li.appendChild(checkbox);
+            li.appendChild(label);
             testList.appendChild(li);
         });
     </script>
-
-
-    <script>
-        fetch('resources/colleges.json')
-        .then(response => response.json())
-        .then(jsonData => {
-            const listElement = document.getElementById("itemList");
-            jsonData.items.forEach(item => {
-                const li = document.createElement("li");
-                li.textContent = item;
-                listElement.appendChild(li);
-            });
-        })
-        .catch(error => {
-            console.error("Error loading JSON:", error);
-        });
-    </script>
-
-    <!--
-    <label>
-        <input type="checkbox" id="agreeBox" />
-        I agree to the terms
-    </label>
-
-    <script>
-        const checkbox = document.getElementById('agreeBox');
-        checkbox.addEventListener('change', () => {
-        if (checkbox.checked) {
-            alert('You agreed!');
-        } else {
-            alert('You unchecked it.');
-        }
-        });
-    </script>
-    -->
 
 </body>
 </html>
