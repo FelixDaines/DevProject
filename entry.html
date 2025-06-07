@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>College bars</title>
+  <link href="./resources/css/index.css" type="text/css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div id="banner">
+        <div class="content">
+            <h1>Add entry</h1>
+        </div>        
+    </div>
+
+    <div class="add-college-entry">
+        <label for="college-select">Select a college:</label>
+        <select id="college-select" name="college-select">
+            <option value="">--Please choose a college--</option>
+        </select>
+
+        <!--
+            <br>
+        <label for="who-with">Who came to this bar?:</label>
+        <input type="text" id="who-with" name="user-entry" placeholder="Enter text here">
+    -->
+    </div>
+
+    
+    <script>
+        const colleges = [
+            "Christ's College",
+            "Churchill College",
+            "Clare College",
+            "Clare Hall",
+            "Corpus Christi College",
+            "Darwin College",
+            "Downing College",
+            "Emmanuel College",
+            "Fitzwilliam College",
+            "Girton College",
+            "Gonville & Caius College",
+            "Homerton College",
+            "Hughes Hall",
+            "Jesus College",
+            "King's College",
+            "Lucy Cavendish College",
+            "Magdalene College",
+            "Murray Edwards College",
+            "Newnham College",
+            "Pembroke College",
+            "Peterhouse",
+            "Queens' College",
+            "Robinson College",
+            "St Catharine's College",
+            "St Edmund's College",
+            "St John's College",
+            "Selwyn College",
+            "Sidney Sussex College",
+            "Trinity College",
+            "Trinity Hall",
+            "Wolfson College"
+        ];
+
+        const select = document.getElementById('college-select');
+        colleges.forEach(college => {
+            const option = document.createElement('option');
+            option.value = college;
+            option.textContent = college;
+            select.appendChild(option);
+        });
+
+        // Submit button logic (only for the submit button)
+        document.addEventListener('DOMContentLoaded', function() {
+            const submitBtn = document.getElementById('submit-btn');
+            submitBtn.addEventListener('click', function() {
+                const selectedCollege = select.value;
+                if (!selectedCollege) {
+                    alert("Please select a college!");
+                    return;
+                }
+                const key = "num " + selectedCollege;
+                let current = parseInt(localStorage.getItem(key) || "0", 10);
+                localStorage.setItem(key, current + 1);
+                alert("Entry added for " + selectedCollege + "!");
+            });
+        });
+    </script>
+
+    <div class="button-container">
+        <button id="submit-btn" class="page-link">Submit Entry</button>
+    </div>
+
+    <div class="button-container">
+        <a class="page-link" href="index.html">HOME</a>
+    </div>
+</body>
+</html>

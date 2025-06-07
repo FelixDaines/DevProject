@@ -41,19 +41,52 @@ li {
 #bar-list {
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* aligns checkboxes and labels vertically */
+  align-items: center;
+  justify-content: center;
+}
+
+#bar_list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
   padding: 10px;
   background-color: #5C6784;
   border: 3px solid #1D263B;
   border-radius: 10px;
-  margin: 10px auto;
+  margin: 20px, auto;
   list-style-position: inside;
   width: auto;
+  margin-top: 20px;
 }
 
 #bar_list li {
   display: flex;
   align-items: center;
+  justify-content: center;
   margin-bottom: 6px;
+  width: 100%;
+}
+
+.button-container {
+  text-align: center;
+}
+
+.page-link{
+  display: inline-flex;
+  height: 100%;
+  width: auto;
+  padding: 10px;
+  background-color: #1D263B;
+  border: 3px solid #1D263B;
+  color: white;
+  border-radius: 10px;
+  margin-top: 20px;
+  list-style-position: inside;
+  text-decoration: none;
+  font-style: bold;
+}
+
+.page-link:hover{
+  background-color: #5C6784;
 }

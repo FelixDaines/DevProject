@@ -14,15 +14,12 @@
         </div>        
     </div>
 
-    
+
 
     <div id="bar-list">
-        <p>All college bars:</p>
         <ul id="bar_list"></ul>
     </div>
 
-
-    
     <script>
         const testList = document.getElementById("bar_list");
         const items = [
@@ -57,19 +54,40 @@
             "Trinity College",
             "Trinity Hall",
             "Wolfson College"];
+
+        // Loop through each college
         items.forEach(item => {
+            
+            // Create local storage entry for each college
+            const key = "num " + item;
+            if (localStorage.getItem(key) === null) {
+                localStorage.setItem(key, 0);   // Default to zero times attended
+            }
+
             const li = document.createElement("li");
-            const checkbox = document.createElement("input");
-            checkbox.type = "checkbox";
-            checkbox.id = item.replace(/\s+/g, '_').replace(/[^a-zA-Z0-9_]/g, '');
+            li.style.display = "flex";
+            li.style.alignItems = "center";
+            li.style.justifyContent = "center";
+
+            // Show tick or cross depending on localStorage value
+            const value = localStorage.getItem(key);
+            const statusSpan = document.createElement("span");
+            statusSpan.style.marginRight = "10px";
+            statusSpan.textContent = (value === "0") ? "❌" : "✅";
+
             const label = document.createElement("label");
-            label.htmlFor = checkbox.id;
             label.textContent = item;
-            li.appendChild(checkbox);
+
+            li.appendChild(statusSpan);
             li.appendChild(label);
-            testList.appendChild(li);
+            testList.appendChild(li);      
         });
+    
+
     </script>
 
+    <div class="button-container">
+        <a class="page-link" href="entry.html">ADD BAR ENTRY</a>
+    </div>
 </body>
 </html>
