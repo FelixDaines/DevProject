@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>College bars</title>
+  <link href="./resources/css/index.css" type="text/css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div id="banner">
+        <div class="content">
+            <h1>Statistics</h1>
+        </div>        
+    </div>
+
+    <div class="charts">
+        <h2>Bars attended</h2>
+        <canvas id="attendance-bars" width="600" height="400"></canvas>
+    </div>
+
+    <!-- Draw bar chart of bars attended -->
+    <script>
+        // List of colleges (should match your other files)
+        const colleges = [
+            "Christ's College",
+            "Churchill College",
+            "Clare College",
+            "Clare Hall",
+            "Corpus Christi College",
+            "Darwin College",
+            "Downing College",
+            "Emmanuel College",
+            "Fitzwilliam College",
+            "Girton College",
+            "Gonville & Caius College",
+            "Homerton College",
+            "Hughes Hall",
+            "Jesus College",
+            "King's College",
+            "Lucy Cavendish College",
+            "Magdalene College",
+            "Murray Edwards College",
+            "Newnham College",
+            "Pembroke College",
+            "Peterhouse",
+            "Queens' College",
+            "Robinson College",
+            "St Catharine's College",
+            "St Edmund's College",
+            "St John's College",
+            "Selwyn College",
+            "Sidney Sussex College",
+            "Trinity College",
+            "Trinity Hall",
+            "Wolfson College"
+        ];
+
+        // Get attendance data from localStorage and pair with college names
+        let attendanceData = colleges.map(college => {
+            const key = "num " + college;
+            return {
+                college,
+                value: parseInt(localStorage.getItem(key) || "0", 10)
+            };
+        });
+
+        // Sort by attendance descending
+        attendanceData.sort((a, b) => b.value - a.value);
+
+        // Separate sorted data back into arrays
+        const sortedColleges = attendanceData.map(item => item.college);
+        const sortedAttendance = attendanceData.map(item => item.value);
+
+        // Draw bar chart using Canvas API
+        const canvas = document.getElementById('attendance-bars');
+        const ctx = canvas.getContext('2d');
+
+        // Chart settings for horizontal bars
+        const paddingLeft = 120;
+        const paddingRight = 40;
+        const paddingTop = 20;
+        const paddingBottom = 20;
+        const barHeight = 12;
+        const barGap = 6;
+        const nBars = sortedAttendance.length;
+
+        // Dynamically set chart width so all bars fit
+        const chartWidth = 400; // width for the bars area (adjust as needed)
+        const canvasWidth = paddingLeft + chartWidth + paddingRight;
+        const canvasHeight = paddingTop + paddingBottom + nBars * (barHeight + barGap);
+
+        canvas.width = canvasWidth;
+        canvas.height = canvasHeight;
+
+        // Draw axes
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.beginPath();
+        ctx.moveTo(paddingLeft, paddingTop);
+        ctx.lineTo(paddingLeft, canvas.height - paddingBottom);
+        ctx.lineTo(canvas.width - paddingRight, canvas.height - paddingBottom);
+        ctx.strokeStyle = "#1D263B";
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // Draw bars horizontally
+        sortedAttendance.forEach((value, i) => {
+            const y = paddingTop + i * (barHeight + barGap);
+            const barLen = (value / Math.max(...sortedAttendance, 1)) * chartWidth;
+            ctx.fillStyle = "black";
+            ctx.fillRect(paddingLeft, y, barLen, barHeight);
+
+            // College name label (left of bar)
+            ctx.font = "12px Arial";
+            ctx.fillStyle = "#1D263B";
+            ctx.textAlign = "right";
+            ctx.textBaseline = "middle";
+            ctx.fillText(sortedColleges[i], paddingLeft - 10, y + barHeight / 2);
+
+            // Attendance number at end of bar
+            if (value > 0) {
+                ctx.font = "12px Arial";
+                ctx.fillStyle = "#1D263B";
+                ctx.textAlign = "left";
+                ctx.fillText(value, paddingLeft + barLen + 6, y + barHeight / 2);
+            }
+        });
+
+        // X-axis labels (attendance numbers)
+        ctx.font = "12px Arial";
+        ctx.fillStyle = "#1D263B";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "top";
+        const maxAttendance = Math.max(...sortedAttendance, 1);
+        const nTicks = Math.min(maxAttendance, 10);
+        for (let t = 0; t <= nTicks; t++) {
+            const x = paddingLeft + (t / nTicks) * chartWidth;
+            ctx.fillText(Math.round((t / nTicks) * maxAttendance), x, canvas.height - paddingBottom + 5);
+        }
+    </script>
+
+    <div class="button-container">
+        <a class="page-link" href="index.html">HOME</a>
+    </div>
+</body>
+</html>
