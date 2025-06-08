@@ -15,18 +15,67 @@
 
     <div class="button-container">
         <label for="college-select">Select a college:</label>
-        <select id="college-select" name="college-select">
+        <select id="college-select" name="college-select" class="custom-select">
             <option value="">Please choose a college</option>
         </select>
 
-        <!--
-            <br>
+        <br>
         <label for="who-with">Who came to this bar?:</label>
-        <input type="text" id="who-with" name="user-entry" placeholder="Enter text here">
-    -->
+        <input type="text" id="who-with" name="who-with" placeholder="Enter names" class="custom-text-entry">
+
+        
+        <br>
+        <label for="bar-atmosphere">Atmosphere:</label>
+        <select id="bar-atmosphere" name="bar-atmosphere" class="custom-select">
+            <option value="">Select rating</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        
+        <br>
+        <label for="bar-price">Value for money:</label>
+        <select id="bar-price" name="bar-price" class="custom-select">
+            <option value="">Select rating</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+
+        <br>
+        <label for="drink-selection">Drink selection::</label>
+        <select id="drink-selection" name="drink-selection" class="custom-select">
+            <option value="">Select rating</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+
+        <br>
+        <label for="bar-rating">Overall rating:</label>
+        <select id="bar-rating" name="bar-rating" class="custom-select">
+            <option value="">Select rating</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+
+        <br>
+        <button id="submit-btn" class="page-link">Submit Entry</button>
     </div>
 
-    
+    <div class="button-container">
+        <a class="page-link" href="index.html">HOME</a>
+    </div>
+
     <script>
         const colleges = [
             "Christ's College",
@@ -71,29 +120,47 @@
             select.appendChild(option);
         });
 
-        // Submit button logic (only for the submit button)
         document.addEventListener('DOMContentLoaded', function() {
             const submitBtn = document.getElementById('submit-btn');
             submitBtn.addEventListener('click', function() {
                 const selectedCollege = select.value;
+                const whoWith = document.getElementById('who-with').value;
+                const barRating = document.getElementById('bar-rating').value;
+                const barAtmosphere = document.getElementById('bar-atmosphere').value;
+                const barPrice = document.getElementById('bar-price').value;
+
                 if (!selectedCollege) {
                     alert("Please select a college!");
                     return;
                 }
-                const key = "num " + selectedCollege;
-                let current = parseInt(localStorage.getItem(key) || "0", 10);
-                localStorage.setItem(key, current + 1);
+                if (!barRating || !barAtmosphere || !barPrice) {
+                    alert("Please rate all criteria!");
+                    return;
+                }
+
+                // Build the entry object
+                const entry = {
+                    whoWith: whoWith,
+                    rating: Number(barRating),
+                    atmosphere: Number(barAtmosphere),
+                    price: Number(barPrice),
+                    timestamp: new Date().toISOString()
+                };
+
+                // Get existing entries for this bar
+                const key = "barData " + selectedCollege;
+                let barData = JSON.parse(localStorage.getItem(key) || "[]");
+                barData.push(entry);
+                localStorage.setItem(key, JSON.stringify(barData));
+
+                // Also increment the attendance count
+                const countKey = "num " + selectedCollege;
+                let current = parseInt(localStorage.getItem(countKey) || "0", 10);
+                localStorage.setItem(countKey, current + 1);
+
                 alert("Entry added for " + selectedCollege + "!");
             });
         });
     </script>
-
-    <div class="button-container">
-        <button id="submit-btn" class="page-link">Submit Entry</button>
-    </div>
-
-    <div class="button-container">
-        <a class="page-link" href="index.html">HOME</a>
-    </div>
 </body>
 </html>

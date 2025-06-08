@@ -105,3 +105,31 @@ li {
   width: auto;
   margin-top: 20px;
 }
+
+.custom-select {
+  padding: 8px 16px;
+  border: 2px solid #1D263B;
+  border-radius: 8px;
+  background-color: #f5f5f5;
+  font-size: 16px;
+  color: #1D263B;
+  margin: 10px 0;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.custom-select:focus {
+  border-color: #4CB963;
+  background-color: #eaffea;
+}
+
+.custom-text-entry{
+  padding: 8px 16px;
+  border: 2px solid #1D263B;
+  border-radius: 8px;
+  background-color: #f5f5f5;
+  font-size: 16px;
+  color: #1D263B;
+  margin: 10px 0;
+  outline: none;
+}
