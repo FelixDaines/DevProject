@@ -20,6 +20,8 @@
         <ul id="bar_list"></ul>
     </div>
 
+
+    <!-- Display list of all bars and attendance -->
     <script>
         const testList = document.getElementById("bar_list");
         const items = [
@@ -90,5 +92,60 @@
         <a class="page-link" href="entry.html">ADD BAR ENTRY</a>
         <a class="page-link" href="stats.html">STATS</a>
     </div>
+
+    <div class="button-container">
+        <button onclick="downloadLocalStorage()" class="page-link">Download Backup</button>
+    </div>
+
+    <div class="button-container">
+        <input type="file" id="restore-file" accept=".json">
+        <button onclick="restoreLocalStorage()">Restore Backup</button>
+    </div>
+
+    <!-- Download backup -->
+    <script>
+    function downloadLocalStorage() {
+        const data = JSON.stringify(localStorage, null, 2); // pretty JSON
+        const blob = new Blob([data], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "localStorage-backup.json";
+        a.click();
+
+        URL.revokeObjectURL(url); // cleanup
+    }
+    </script>
+
+    <!-- Restore from backup -->
+    <script>
+    function restoreLocalStorage() {
+        const fileInput = document.getElementById("restore-file");
+        const file = fileInput.files[0];
+
+        if (!file) {
+            alert("Please select a backup file first.");
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            try {
+            const data = JSON.parse(event.target.result);
+            for (let key in data) {
+                localStorage.setItem(key, data[key]);
+            }
+            alert("Local storage successfully restored.");
+            } catch (e) {
+            alert("Failed to restore local storage. Invalid file format.");
+            console.error(e);
+            }
+        };
+
+        reader.readAsText(file);
+    }
+    </script>
+
 </body>
 </html>

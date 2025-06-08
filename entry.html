@@ -13,10 +13,10 @@
         </div>        
     </div>
 
-    <div class="add-college-entry">
+    <div class="button-container">
         <label for="college-select">Select a college:</label>
         <select id="college-select" name="college-select">
-            <option value="">--Please choose a college--</option>
+            <option value="">Please choose a college</option>
         </select>
 
         <!--
@@ -62,6 +62,7 @@
             "Wolfson College"
         ];
 
+        // Fills select bar with college options
         const select = document.getElementById('college-select');
         colleges.forEach(college => {
             const option = document.createElement('option');
