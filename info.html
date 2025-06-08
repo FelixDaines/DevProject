@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bar information</title>
+  <link href="./resources/css/index.css" type="text/css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div id="banner">
+        <div class="content">
+            <h1>Bar information</h1>
+        </div>        
+    </div>
+
+
+    <div class="main-content">
+        <ul id="opening-times"></ul>
+    </div>
+
+
+
+
+    <div class="button-container">
+        <a class="page-link" href="index.html">HOME</a>
+    </div>
+
+    <script>
+        // Read college list from local storage
+        const colleges = JSON.parse(localStorage.getItem("college_list"));
+        console.log("College list loaded successfully")
+
+        const opening_times = {
+            "Christ's College": ["18:00", "23:00"],
+            "Churchill College": null,
+            "Clare College": ["19:00", "23:00"],
+            "Clare Hall": {"wed": ["21:00", "23:00"],
+                            "Thurs, Fri, Sat": ["20:00", "23:00"]},
+            "Corpus Christi College": {"Mon-Thurs": ["17:30", "21:00"],
+                            "Fri": ["19:30", "23:00"],
+                            "Sat": ["17:30", "21:30"],
+                            "Sun": ["18:30", "22:30"]},
+            "Darwin College": ["21:00", "00:00"],
+            "Downing College": ["20:30", "23:00"],
+            "Emmanuel College": ["20:30", "23:00"],
+            "Fitzwilliam College": {"Mon-Fri": ["18:00", "23:00"],
+                            "Sat": ["17:00", "23:00"],
+                            "Sun": ["17:00", "22:30"]},
+            "Girton College": ["19:30", "23:00"],
+            "Gonville & Caius College": null,
+            "Homerton College": null,
+            "Hughes Hall": null,
+            "Jesus College": null,
+            "King's College": null,
+            "Lucy Cavendish College": null,
+            "Magdalene College": null,
+            "Murray Edwards College": null,
+            "Newnham College": null,
+            "Pembroke College": null,
+            "Peterhouse": null,
+            "Queens' College": null,
+            "Robinson College": null,
+            "St Catharine's College": null,
+            "St Edmund's College": null,
+            "St John's College": null,
+            "Selwyn College": null,
+            "Sidney Sussex College": null,
+            "Trinity College": null,
+            "Trinity Hall": null,
+            "Wolfson College": null,
+            "Hawks Club": null
+        }
+
+
+        // Loop through each college
+        colleges.forEach(item => {
+            const times = opening_times[item];
+            if (times != null) {
+                console.log( item, times)
+            }
+
+            const bar_list = document.getElementById("opening-times");
+
+            const li = document.createElement("li");
+            li.style.display = "flex";
+            li.style.alignItems = "center";
+            li.style.justifyContent = "space-between";
+            li.style.width = "100%";
+            li.style.marginBottom = "6px";
+
+            const label = document.createElement("span");
+            label.textContent = item;
+            label.style.flex = "1";
+            label.style.textAlign = "left";
+
+            const timeSpan = document.createElement("span");
+            timeSpan.style.flex = "0 0 220px";
+            timeSpan.style.textAlign = "right";
+            timeSpan.style.color = "#4CB963";
+
+            if (Array.isArray(times)) {
+                // Simple array: [open, close]
+                timeSpan.textContent = `${times[0]} - ${times[1]}`;
+            } else if (times && typeof times === "object") {
+                // Object with multiple days/periods
+                let out = [];
+                for (const [day, hours] of Object.entries(times)) {
+                    if (Array.isArray(hours)) {
+                        out.push(`${day}: ${hours[0]} - ${hours[1]}`);
+                    }
+                }
+                timeSpan.innerHTML = out.join("<br>");
+                timeSpan.style.color = "#4CB963";
+            } else {
+                timeSpan.textContent = "No info";
+                timeSpan.style.color = "#aaa";
+            }
+
+            li.appendChild(label);
+            li.appendChild(timeSpan);
+            bar_list.appendChild(li);
+        });
+    </script>
+</body>
+</html>
