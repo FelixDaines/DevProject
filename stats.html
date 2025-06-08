@@ -4,6 +4,7 @@
   <title>College bars</title>
   <link href="./resources/css/index.css" type="text/css" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -18,43 +19,55 @@
         <canvas id="attendance-bars" width="600" height="400"></canvas>
     </div>
 
+    <div class="charts">
+        <h2>Example Bar Chart</h2>
+        <canvas id="example-bar-chart" width="400" height="300"></canvas>
+    </div>
+
+    <div class="charts">
+        <h2>Test</h2>
+        <canvas id="test-chart" style="width:100%;max-width:700px"></canvas>
+    </div>
+
+    <script>
+        // Minimum working example for a bar chart using Chart.js
+        const exampleCtx = document.getElementById('example-bar-chart').getContext('2d');
+        new Chart(exampleCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple'],
+                datasets: [{
+                    label: 'Votes',
+                    data: [12, 19, 3, 5, 2],
+                    backgroundColor: [
+                        '#e74c3c',
+                        '#3498db',
+                        '#f1c40f',
+                        '#2ecc71',
+                        '#9b59b6'
+                    ]
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+
     <!-- Draw bar chart of bars attended -->
     <script>
-        // List of colleges (should match your other files)
-        const colleges = [
-            "Christ's College",
-            "Churchill College",
-            "Clare College",
-            "Clare Hall",
-            "Corpus Christi College",
-            "Darwin College",
-            "Downing College",
-            "Emmanuel College",
-            "Fitzwilliam College",
-            "Girton College",
-            "Gonville & Caius College",
-            "Homerton College",
-            "Hughes Hall",
-            "Jesus College",
-            "King's College",
-            "Lucy Cavendish College",
-            "Magdalene College",
-            "Murray Edwards College",
-            "Newnham College",
-            "Pembroke College",
-            "Peterhouse",
-            "Queens' College",
-            "Robinson College",
-            "St Catharine's College",
-            "St Edmund's College",
-            "St John's College",
-            "Selwyn College",
-            "Sidney Sussex College",
-            "Trinity College",
-            "Trinity Hall",
-            "Wolfson College"
-        ];
-
+        // Read college list from local storage
+        const colleges = JSON.parse(localStorage.getItem("college_list"));
+        console.log("College list loaded successfully")
+        
         // Get attendance data from localStorage and pair with college names
         let attendanceData = colleges.map(college => {
             const key = "num " + college;

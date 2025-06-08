@@ -77,39 +77,9 @@
     </div>
 
     <script>
-        const colleges = [
-            "Christ's College",
-            "Churchill College",
-            "Clare College",
-            "Clare Hall",
-            "Corpus Christi College",
-            "Darwin College",
-            "Downing College",
-            "Emmanuel College",
-            "Fitzwilliam College",
-            "Girton College",
-            "Gonville & Caius College",
-            "Homerton College",
-            "Hughes Hall",
-            "Jesus College",
-            "King's College",
-            "Lucy Cavendish College",
-            "Magdalene College",
-            "Murray Edwards College",
-            "Newnham College",
-            "Pembroke College",
-            "Peterhouse",
-            "Queens' College",
-            "Robinson College",
-            "St Catharine's College",
-            "St Edmund's College",
-            "St John's College",
-            "Selwyn College",
-            "Sidney Sussex College",
-            "Trinity College",
-            "Trinity Hall",
-            "Wolfson College"
-        ];
+        // Read college list from local storage
+        const colleges = JSON.parse(localStorage.getItem("college_list"));
+        console.log("College list loaded successfully")
 
         // Fills select bar with college options
         const select = document.getElementById('college-select');

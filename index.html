@@ -24,7 +24,9 @@
     <!-- Display list of all bars and attendance -->
     <script>
         const testList = document.getElementById("bar_list");
-        const items = [
+
+    
+        const colleges = [
             "Christ's College",
             "Churchill College",
             "Clare College",
@@ -55,10 +57,16 @@
             "Sidney Sussex College",
             "Trinity College",
             "Trinity Hall",
-            "Wolfson College"];
+            "Wolfson College",
+            "Hawks Club"
+        ];
+
+        // Save college list to local storage so it can be retrieved from other pages
+        localStorage.setItem("college_list", JSON.stringify(colleges));
+        console.log(typeof colleges)
 
         // Loop through each college
-        items.forEach(item => {
+        colleges.forEach(item => {
             
             // Create local storage entry for each college
             const key = "num " + item;
