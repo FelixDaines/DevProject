@@ -32,7 +32,7 @@
 
         const opening_times = {
             "Christ's College": ["18:00", "23:00"],
-            "Churchill College": null,
+            "Churchill College": null, // can't find
             "Clare College": ["19:00", "23:00"],
             "Clare Hall": {"wed": ["21:00", "23:00"],
                             "Thurs, Fri, Sat": ["20:00", "23:00"]},
@@ -58,17 +58,22 @@
             "Newnham College": null,
             "Pembroke College": null,
             "Peterhouse": null,
-            "Queens' College": null,
-            "Robinson College": null,
-            "St Catharine's College": null,
-            "St Edmund's College": null,
-            "St John's College": null,
+            "Queens' College": {"Sun-Mon": ["18:30", "23:30"],
+                            "Fri, Sat": ["18:30", "23:00"]},
+            "Robinson College": {"Monday": "Closed",
+                                "Tues, Wed": ["17:00", "22:00"],
+                                "Thurs-Sat": ["17:00", "23:00"],
+                                "Sun": ["17:00", "22:00"]},
+            "St Catharine's College": null,  // cant find
+            "St Edmund's College": ["21:30", "00:00"],
+            "St John's College": null, // cant find
             "Selwyn College": null,
-            "Sidney Sussex College": null,
-            "Trinity College": null,
-            "Trinity Hall": null,
-            "Wolfson College": null,
-            "Hawks Club": null
+            "Sidney Sussex College": {"Sun-Thurs": ["20:30", "23:00"],
+                                    "Fri-Sat": ["20:30", "23:00"]},
+            "Trinity College": null, // can't find
+            "Trinity Hall": null, // can't find
+            "Wolfson College": ["20:00", "00:00"],
+            "Hawks Club": {"Tues-Sun": ["18:00", "23:00"]}
         }
 
 
